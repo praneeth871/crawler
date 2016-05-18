@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>Search</title>
+
+    <style>
+        #searchbox {
+                     width: 500px;
+                     height: 30px;
+                  }
+        #submit {
+        width: 135px;
+        height: 100px
+                }
+        p {
+           color: blue;
+          }
+    </style>
+</head>
+
+<body>
+<p align="right" > Current time {{ current_date }}</p>
+    <form align="center" action="/engine/home/search/" method="get" data-file-width="10">
+        <input type="text" name="q"  id="searchbox" >
+        <br> <br>
+        <input type="submit" value="Search" id="submit">
+    </form>
+
+<!--
+{% if files_list %}
+    <p> Found {{files_list|length}} document{{files_list|pluralize}} matching {{value}}. </p>
+    {% for mykey, myvalue in files_list.items %}
+       <li> {{ mykey }} : {{ myvalue }} </li>
+    {% endfor %}
+{% endif %}
+-->
+
+{% if result_metadata %}
+<p> Found {{result_metadata|length}} document{{result_metadata|pluralize}} matching {{value}}</p>
+    {% for item in result_metadata %}
+         <li> Keyword : {{ item.0 }}</li>
+         <li> Filename : {{ item.1 }}</li>
+         <li> Term Frequency : {{ item.2 }}</li>
+         <li> Content : {{ item.3 }}</li>
+         <br>
+    {% endfor %}
+    <br>
+{% endif %}
+
+</body>
+</html>
+
+
